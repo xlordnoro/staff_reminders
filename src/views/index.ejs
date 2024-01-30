@@ -260,8 +260,15 @@
       // Function to update the countdown display
       function updateCountdownDisplay(value) {
         const countdownDisplay = document.getElementById('countdown');
-        if (countdownDisplay) {
-          countdownDisplay.textContent = `Refreshing in ${value} seconds`;
+        const progressBarContainer = document.getElementById('progress-bar-container');
+        const progressBar = document.getElementById('progress-bar');
+
+        if (countdownDisplay && progressBarContainer && progressBar) {
+        const minutes = Math.floor(value / 60);
+        const seconds = value % 60;
+
+        countdownDisplay.textContent = `Refreshing in ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        progressBar.style.width = `${(countdownDuration - value) / countdownDuration * 100}%`;
 
           // Get the current theme class applied to the body
           const currentTheme = document.body.classList.contains('dark') ? 'dark' : 'light';
